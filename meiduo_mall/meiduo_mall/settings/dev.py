@@ -1,4 +1,4 @@
-#开发环境配置文件
+# 开发环境配置文件
 
 """
 Django settings for meiduo_mall project.
@@ -13,10 +13,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -28,7 +28,6 @@ SECRET_KEY = '3*(06h(fgh_2+iul^q^93ta2!mc$4@49(tvjpvzeox!8mik6&o'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -54,9 +53,23 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'meiduo_mall.urls'
 
 TEMPLATES = [
+    # {
+    #     'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    #     'DIRS': [],
+    #     'APP_DIRS': True,
+    #     'OPTIONS': {
+    #         'context_processors': [
+    #             'django.template.context_processors.debug',
+    #             'django.template.context_processors.request',
+    #             'django.contrib.auth.context_processors.auth',
+    #             'django.contrib.messages.context_processors.messages',
+    #         ],
+    #     },
+    # },
+
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',  # 配置jinja2
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  #配置模板位置
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,12 +78,13 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            #补充jinja2  模板引擎环境
+            'enviroment': 'meiduo_mall.utils.jinja2_env.jinja2_environment'
         },
     },
 ]
 
 WSGI_APPLICATION = 'meiduo_mall.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -81,7 +95,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -101,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -114,7 +126,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
